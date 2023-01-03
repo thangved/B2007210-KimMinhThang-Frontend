@@ -3,10 +3,13 @@
 		class="navbar bg-dark navbar-expand-lg"
 		data-bs-theme="dark"
 	>
-		<div class="container-fluid">
-			<a class="navbar-brand text-light" href="#"
-				>Ứng dụng quản lý danh bạ</a
+		<div class="container">
+			<router-link
+				class="navbar-brand text-light"
+				to="/"
 			>
+				Ứng dụng quản lý danh bạ
+			</router-link>
 			<button
 				class="navbar-toggler"
 				type="button"
@@ -30,7 +33,9 @@
 							to="/"
 						>
 							Danh bạ
-							<FontAwesomeIcon icon="plus" />
+							<i
+								class="fa-solid fa-address-book"
+							></i>
 						</router-link>
 					</li>
 				</ul>
