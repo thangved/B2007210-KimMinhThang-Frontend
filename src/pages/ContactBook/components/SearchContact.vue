@@ -7,6 +7,7 @@
 			:value="modelValue"
 			@input="updateModelValue"
 			@keyup.enter="submit"
+			autofocus
 		/>
 		<button
 			type="button"
@@ -26,10 +27,7 @@ export default {
 	emits: ["submit", "update:modelValue"],
 	methods: {
 		updateModelValue(e) {
-			this.$emits(
-				"update:modelValue",
-				e.event.target
-			);
+			this.$emit("update:modelValue", e.target.value);
 		},
 		submit() {
 			this.$emit("submit");

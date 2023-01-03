@@ -1,9 +1,9 @@
 <template>
-	<search-contact />
+	<search-contact v-model:modelValue="textSearch" />
 	<div class="row">
 		<div class="col col-sm-12 col-md-6 col-lg-8">
 			<contact-list
-				:contacts="contacts"
+				:contacts="filteredContacts"
 				v-model:activeIndex="activeIndex"
 			/>
 			<div
@@ -43,8 +43,8 @@
 		</div>
 		<div class="col col-sm-12 col-md-6 col-lg-4">
 			<contact-card
-				v-if="contacts[activeIndex]"
-				:contactInfo="contacts[activeIndex]"
+				v-if="filteredContacts[activeIndex]"
+				:contactInfo="filteredContacts[activeIndex]"
 			/>
 		</div>
 	</div>
@@ -99,6 +99,27 @@ export default {
 					id: this.contacts[this.activeIndex]._id,
 				},
 			});
+		},
+
+		compareContactWithString(contact, str) {
+			const contactString = Object.keys(contact)
+				.map((key) => contact[key])
+				.join("")
+				.toUpperCase();
+
+			return contactString.includes(
+				String(str).toUpperCase()
+			);
+		},
+	},
+	computed: {
+		filteredContacts() {
+			return this.contacts.filter((e) =>
+				this.compareContactWithString(
+					e,
+					this.textSearch
+				)
+			);
 		},
 	},
 	mounted() {
