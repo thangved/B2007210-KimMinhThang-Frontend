@@ -1,22 +1,38 @@
 <template>
-	<form @submit.prevent="submit">
+	<vee-form
+		@submit="submit"
+		:validation-schema="contactFormScheme"
+		@invalid-submit="validate"
+	>
 		<div class="mb-3">
 			<label for="name" class="form-label">Tên</label>
-			<input
+			<field
 				class="form-control"
 				id="name"
+				name="name"
 				v-model="localContact.name"
+				:class="{ 'is-invalid': error.name }"
+			/>
+			<error-message
+				name="name"
+				class="invalid-feedback"
 			/>
 		</div>
 		<div class="mb-3">
 			<label for="email" class="form-label">
 				Email
 			</label>
-			<input
+			<field
 				type="email"
 				class="form-control"
 				id="email"
+				name="email"
 				v-model="localContact.email"
+				:class="{ 'is-invalid': error.email }"
+			/>
+			<error-message
+				name="email"
+				class="invalid-feedback"
 			/>
 		</div>
 
@@ -24,10 +40,16 @@
 			<label for="address" class="form-label">
 				Địa chỉ
 			</label>
-			<input
+			<field
 				class="form-control"
 				id="address"
+				name="address"
 				v-model="localContact.address"
+				:class="{ 'is-invalid': error.address }"
+			/>
+			<error-message
+				name="address"
+				class="invalid-feedback"
 			/>
 		</div>
 
@@ -35,20 +57,32 @@
 			<label for="phone" class="form-label">
 				Điện thoại
 			</label>
-			<input
+			<field
 				type="tel"
 				class="form-control"
 				id="phone"
+				name="phone"
 				v-model="localContact.phone"
+				:class="{ 'is-invalid': error.phone }"
+			/>
+			<error-message
+				name="phone"
+				class="invalid-feedback"
 			/>
 		</div>
 
 		<div class="mb-3 form-check">
-			<input
+			<field
 				type="checkbox"
 				class="form-check-input"
 				id="favorite"
+				name="favorite"
+				:class="{ 'is-invalid': error.favorite }"
 				v-model="localContact.favorite"
+			/>
+			<error-message
+				name="favorite"
+				class="invalid-feedback"
 			/>
 			<label class="form-check-label" for="favorite">
 				Liên hệ yêu thích
@@ -65,18 +99,39 @@
 		>
 			<i class="fa-solid fa-trash"></i> Xóa
 		</button>
-	</form>
+	</vee-form>
 </template>
 
 <script>
+import {
+	ErrorMessage,
+	Field,
+	Form as VeeForm,
+} from "vee-validate";
+import * as yup from "yup";
+
 export default {
 	props: {
 		contact: { required: true },
 		showDelete: { type: Boolean, default: false },
 	},
+	components: { VeeForm, Field, ErrorMessage },
 	emits: ["submit:contact", "delete:contact"],
 	data() {
-		return { localContact: this.contact };
+		const contactFormScheme = yup.object().shape({
+			name: yup
+				.string()
+				.required("Tên liên hệ là bắt buộc!"),
+			email: yup.string().email("Email không hợp lệ"),
+			address: yup.string(),
+			phone: yup.string(),
+		});
+
+		return {
+			localContact: this.contact,
+			contactFormScheme,
+			error: {},
+		};
 	},
 	methods: {
 		submit() {
@@ -84,6 +139,18 @@ export default {
 		},
 		onDelete() {
 			this.$emit("delete:contact");
+		},
+		validate() {
+			try {
+				this.contactFormScheme.validateSync(
+					this.localContact
+				);
+				this.error = {};
+			} catch (error) {
+				this.error = {
+					[error.path]: true,
+				};
+			}
 		},
 	},
 };
