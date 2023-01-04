@@ -43,7 +43,6 @@
 		</div>
 		<div class="col col-sm-12 col-md-6 col-lg-4">
 			<contact-card
-				v-if="filteredContacts[activeIndex]"
 				:contactInfo="filteredContacts[activeIndex]"
 			/>
 		</div>

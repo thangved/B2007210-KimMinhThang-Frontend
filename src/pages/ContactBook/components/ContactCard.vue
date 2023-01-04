@@ -1,10 +1,10 @@
 <template>
-	<h2>
+	<h2 class="mb-4">
 		Chi tiết liên hệ
 		<i class="fa-solid fa-address-card"></i>
 	</h2>
 
-	<dl class="row">
+	<dl v-if="contactInfo" class="row">
 		<dt class="col-sm-4">Tên:</dt>
 		<dd class="col-sm-8">{{ contactInfo.name }}</dd>
 
@@ -32,6 +32,9 @@
 			<i v-else class="fa-solid x-mark"></i>
 		</dd>
 	</dl>
+	<span v-else class="alert alert-primary"
+		>Vui lòng chọn một liên hệ để hiển thị</span
+	>
 </template>
 
 <script>

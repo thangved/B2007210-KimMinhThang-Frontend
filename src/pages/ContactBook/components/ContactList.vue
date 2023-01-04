@@ -1,5 +1,5 @@
 <template>
-	<h2 class="title">
+	<h2>
 		Danh bạ <i class="fa-solid fa-address-book"></i>
 	</h2>
 
