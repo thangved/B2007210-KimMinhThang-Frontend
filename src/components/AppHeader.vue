@@ -40,7 +40,7 @@
 					</li>
 				</ul>
 
-				<ul class="navbar-nav">
+				<ul class="navbar-nav" v-if="!authed">
 					<router-link
 						class="btn btn-sm text-light"
 						:to="{ name: 'login' }"
@@ -54,13 +54,32 @@
 						Đăng ký
 					</router-link>
 				</ul>
+
+				<ul class="navbar-nav" v-else>
+					<span class="text-light text-sm p-1">{{
+						userInfor.username
+					}}</span>
+					<button
+						class="btn btn-outline-light btn-sm"
+					>
+						Đăng xuất
+					</button>
+				</ul>
 			</div>
 		</div>
 	</nav>
 </template>
 
 <script>
+import store from "../store";
+
 export default {
 	components: {},
+	data() {
+		return {
+			authed: store.authed,
+			userInfor: store.userInfor,
+		};
+	},
 };
 </script>

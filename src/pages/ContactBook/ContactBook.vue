@@ -51,6 +51,7 @@
 
 <script>
 import ContactService from "../../services/contact.service";
+import store from "../../store";
 import ContactCard from "./components/ContactCard.vue";
 import ContactList from "./components/ContactList.vue";
 import SearchContact from "./components/SearchContact.vue";
@@ -58,7 +59,11 @@ import SearchContact from "./components/SearchContact.vue";
 export default {
 	name: "ContackBook",
 	components: { SearchContact, ContactList, ContactCard },
+
 	data() {
+		if (!store.authed) {
+			this.$router.push({ name: "login" });
+		}
 		return {
 			activeIndex: -1,
 			textSearch: "",

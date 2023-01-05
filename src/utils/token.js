@@ -1,4 +1,5 @@
 import appConfig from "../configs/app.config";
+import request from "./request";
 
 const token = {
 	get() {
@@ -11,6 +12,8 @@ const token = {
 			appConfig.accessTokenName,
 			accessToken
 		);
+		request.defaults.headers.authorization =
+			accessToken;
 	},
 };
 
