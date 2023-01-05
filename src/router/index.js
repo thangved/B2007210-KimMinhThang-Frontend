@@ -3,6 +3,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import ContactBook from "../pages/ContactBook/ContactBook.vue";
 import NewContact from "../pages/NewContact/NewContact.vue";
 import EditContact from "../pages/EditContact/EditContact.vue";
+import LoginPage from "../pages/LoginPage/LoginPage.vue";
 
 const routes = [
 	{
@@ -19,6 +20,17 @@ const routes = [
 		path: "/edit/:id",
 		name: "edit_contact",
 		component: EditContact,
+	},
+	{
+		path: "/login",
+		name: "login",
+		component: LoginPage,
+	},
+
+	{
+		path: "/register",
+		name: "register",
+		component: null,
 	},
 ];
 

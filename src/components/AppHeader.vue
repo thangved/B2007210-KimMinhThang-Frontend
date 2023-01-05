@@ -11,7 +11,7 @@
 				Ứng dụng quản lý danh bạ
 			</router-link>
 			<button
-				class="navbar-toggler"
+				class="navbar-toggler text-light"
 				type="button"
 				data-bs-toggle="collapse"
 				data-bs-target="#navbarNav"
@@ -19,10 +19,10 @@
 				aria-expanded="false"
 				aria-label="Toggle navigation"
 			>
-				<span class="navbar-toggler-icon"></span>
+				<i class="fa-solid fa-bars"></i>
 			</button>
 			<div
-				class="collapse navbar-collapse"
+				class="collapse navbar-collapse flex justify-content-between"
 				id="navbarNav"
 			>
 				<ul class="navbar-nav">
@@ -38,6 +38,21 @@
 							></i>
 						</router-link>
 					</li>
+				</ul>
+
+				<ul class="navbar-nav">
+					<router-link
+						class="btn btn-sm text-light"
+						:to="{ name: 'login' }"
+					>
+						Đăng nhập
+					</router-link>
+					<router-link
+						class="btn btn-outline-light btn-sm"
+						:to="{ name: 'register' }"
+					>
+						Đăng ký
+					</router-link>
 				</ul>
 			</div>
 		</div>

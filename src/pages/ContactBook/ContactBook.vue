@@ -10,7 +10,7 @@
 				class="d-flex justify-content-between flex-wrap"
 			>
 				<div
-					class="btn btn-outline-dark mt-2"
+					class="btn btn-outline-dark mt-2 btn-sm"
 					v-if="activeIndex !== -1"
 					@click="gotoEditPage"
 				>
@@ -19,7 +19,7 @@
 				</div>
 
 				<div
-					class="btn btn-primary mt-2"
+					class="btn btn-primary mt-2 btn-sm"
 					@click="refreshContactList"
 				>
 					<i class="fa-solid fa-rotate-left"></i>
@@ -27,13 +27,13 @@
 				</div>
 				<router-link
 					to="/new"
-					class="btn btn-success mt-2"
+					class="btn btn-success mt-2 btn-sm"
 				>
 					<i class="fa-solid fa-plus"></i> Thêm
 					mới
 				</router-link>
 				<div
-					class="btn btn-danger mt-2"
+					class="btn btn-danger mt-2 btn-sm"
 					@click="deleteAll"
 				>
 					<i class="fa-solid fa-trash"></i> Xóa

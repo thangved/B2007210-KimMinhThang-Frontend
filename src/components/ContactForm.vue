@@ -11,6 +11,7 @@
 				id="name"
 				name="name"
 				v-model="localContact.name"
+				autofocus
 				:class="{ 'is-invalid': error.name }"
 			/>
 			<error-message

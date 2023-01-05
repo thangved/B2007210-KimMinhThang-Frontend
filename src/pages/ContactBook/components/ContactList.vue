@@ -3,7 +3,7 @@
 		Danh bạ <i class="fa-solid fa-address-book"></i>
 	</h2>
 
-	<ul class="list-group">
+	<ul v-if="contacts.length" class="list-group">
 		<li
 			class="list-group-item list-group-item-action"
 			v-for="(contact, index) in contacts"
@@ -14,6 +14,10 @@
 			{{ contact.name }}
 		</li>
 	</ul>
+
+	<div v-else class="p-2 text-center">
+		Bạn chưa tạo liên hệ nào
+	</div>
 </template>
 
 <script>
