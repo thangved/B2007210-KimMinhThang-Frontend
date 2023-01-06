@@ -28,20 +28,41 @@
 			<i
 				v-if="contactInfo.favorite"
 				class="fa-solid fa-check"
-			></i>
+			>
+			</i>
 			<i v-else class="fa-solid x-mark"></i>
 		</dd>
+
+		<dt class="col-sm-4">Ngày tạo</dt>
+		<dd class="col-sm-8">
+			<i>
+				{{
+					moment(contactInfo.createdAt).calendar()
+				}}
+			</i>
+		</dd>
+
+		<dt class="col-sm-4">Chỉnh sửa lần cuối</dt>
+		<dd class="col-sm-8">
+			<i>
+				{{
+					moment(contactInfo.updatedAt).calendar()
+				}}
+			</i>
+		</dd>
 	</dl>
-	<span v-else class="alert alert-primary"
-		>Vui lòng chọn một liên hệ để hiển thị</span
-	>
+	<span v-else class="alert alert-primary p-2">
+		Vui lòng chọn một liên hệ để hiển thị
+	</span>
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
 	props: ["contactInfo"],
 	data() {
-		return {};
+		return { moment };
 	},
 };
 </script>

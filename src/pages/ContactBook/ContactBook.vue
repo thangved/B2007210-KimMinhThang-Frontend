@@ -1,7 +1,7 @@
 <template>
 	<search-contact v-model:modelValue="textSearch" />
 	<div class="row">
-		<div class="col col-sm-12 col-md-6 col-lg-8">
+		<div class="col col-12 col-md-6 col-lg-8">
 			<contact-list
 				:contacts="filteredContacts"
 				v-model:activeIndex="activeIndex"
@@ -34,24 +34,67 @@
 				</router-link>
 				<div
 					class="btn btn-danger mt-2 btn-sm"
-					@click="deleteAll"
+					data-bs-toggle="modal"
+					data-bs-target="#deleteAllModal"
 				>
 					<i class="fa-solid fa-trash"></i> Xóa
 					tất cả
 				</div>
 			</div>
+			<div class="p-4"></div>
 		</div>
-		<div class="col col-sm-12 col-md-6 col-lg-4">
+		<div class="col col-12 col-md-6 col-lg-4">
 			<contact-card
 				:contactInfo="filteredContacts[activeIndex]"
 			/>
 		</div>
 	</div>
+
+	<div
+		class="modal fade"
+		id="deleteAllModal"
+		tabindex="-1"
+	>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5">
+						Đăng xuất
+					</h1>
+					<button
+						type="button"
+						class="btn-close"
+						data-bs-dismiss="modal"
+					></button>
+				</div>
+				<div class="modal-body">
+					Bạn muốn xóa tất cả liên hệ?
+				</div>
+				<div class="modal-footer">
+					<button
+						type="button"
+						class="btn btn-secondary"
+						data-bs-dismiss="modal"
+					>
+						Hủy
+					</button>
+					<button
+						type="button"
+						class="btn btn-danger"
+						data-bs-dismiss="modal"
+						@click="deleteAll"
+					>
+						Xóa
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
-import ContactService from "../../services/contact.service";
-import store from "../../store";
+import ContactService from "@/services/contact.service";
+import store from "@/store";
 import ContactCard from "./components/ContactCard.vue";
 import ContactList from "./components/ContactList.vue";
 import SearchContact from "./components/SearchContact.vue";
@@ -61,7 +104,7 @@ export default {
 	components: { SearchContact, ContactList, ContactCard },
 
 	data() {
-		if (!store.authed) {
+		if (!store.authed && store.logged) {
 			this.$router.push({ name: "login" });
 		}
 		return {
@@ -85,10 +128,6 @@ export default {
 
 		async deleteAll() {
 			try {
-				if (
-					!confirm("Bạn muốn xóa tất cả liên hệ?")
-				)
-					return;
 				await ContactService.deleteAll();
 				this.refreshContactList();
 			} catch (error) {

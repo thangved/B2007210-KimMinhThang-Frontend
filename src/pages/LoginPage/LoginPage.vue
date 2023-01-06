@@ -1,27 +1,33 @@
 <template>
-	<h2>Đăng nhập</h2>
-	<login-form @submit="handleLogin" />
+	<div class="d-flex flex-column align-items-center">
+		<h2>Đăng nhập</h2>
+		<login-form
+			@submit="handleLogin"
+			class="card border p-4"
+		/>
+	</div>
 </template>
 
 <script>
 import LoginForm from "./components/LoginForm.vue";
-import AuthService from "../../services/auth.service";
-import token from "../../utils/token";
+import store from "@/store";
 
 export default {
 	components: { LoginForm },
+	data() {
+		if (store.authed) {
+			this.$router.push({ name: "contactbook" });
+		}
+		return {};
+	},
+
 	methods: {
 		async handleLogin(loginForm) {
 			try {
-				const res = await AuthService.login(
-					loginForm
-				);
-
-				token.set(res.data.accessToken);
-
+				await store.login(loginForm);
 				this.$router.push({ name: "contactbook" });
 			} catch (error) {
-				alert(error.response.data.message);
+				alert(error.message);
 			}
 		},
 	},

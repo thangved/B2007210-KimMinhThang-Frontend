@@ -1,4 +1,6 @@
-import request from "../utils/request";
+import request from "@/utils/request";
+import token from "@/utils/token";
+import store from "@/store";
 
 class AuthService {
 	static async login(payload) {
@@ -12,6 +14,12 @@ class AuthService {
 			"/auth/register",
 			payload
 		);
+	}
+	static logout() {
+		token.set("");
+		store.authed = false;
+		store.logged = false;
+		store.userInfor = null;
 	}
 }
 

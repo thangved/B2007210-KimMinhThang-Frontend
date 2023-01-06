@@ -1,9 +1,10 @@
 import { createWebHistory, createRouter } from "vue-router";
 
-import ContactBook from "../pages/ContactBook/ContactBook.vue";
-import NewContact from "../pages/NewContact/NewContact.vue";
-import EditContact from "../pages/EditContact/EditContact.vue";
-import LoginPage from "../pages/LoginPage/LoginPage.vue";
+import ContactBook from "@/pages/ContactBook/ContactBook.vue";
+import NewContact from "@/pages/NewContact/NewContact.vue";
+import EditContact from "@/pages/EditContact/EditContact.vue";
+import LoginPage from "@/pages/LoginPage/LoginPage.vue";
+import RegisterPage from "@/pages/RegisterPage/RegisterPage.vue";
 
 const routes = [
 	{
@@ -30,7 +31,7 @@ const routes = [
 	{
 		path: "/register",
 		name: "register",
-		component: null,
+		component: RegisterPage,
 	},
 ];
 

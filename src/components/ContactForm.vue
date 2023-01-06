@@ -3,6 +3,7 @@
 		@submit="submit"
 		:validation-schema="contactFormScheme"
 		@invalid-submit="validate"
+		class="card border p-4"
 	>
 		<div class="mb-3">
 			<label for="name" class="form-label">Tên</label>
@@ -73,7 +74,7 @@
 		</div>
 
 		<div class="mb-3 form-check">
-			<field
+			<input
 				type="checkbox"
 				class="form-check-input"
 				id="favorite"
@@ -89,18 +90,57 @@
 				Liên hệ yêu thích
 			</label>
 		</div>
-		<button type="submit" class="btn btn-primary">
-			<i class="fa-solid fa-save"></i> Lưu
-		</button>
-		<button
-			v-if="showDelete"
-			type="button"
-			class="btn btn-danger m-2"
-			@click="onDelete"
-		>
-			<i class="fa-solid fa-trash"></i> Xóa
-		</button>
+		<div>
+			<button type="submit" class="btn btn-primary">
+				<i class="fa-solid fa-save"></i> Lưu
+			</button>
+			<button
+				v-if="showDelete"
+				type="button"
+				class="btn btn-danger m-2"
+				data-bs-toggle="modal"
+				data-bs-target="#deleteModal"
+			>
+				<i class="fa-solid fa-trash"></i> Xóa
+			</button>
+		</div>
 	</vee-form>
+	<div class="modal fade" id="deleteModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5">
+						Đăng xuất
+					</h1>
+					<button
+						type="button"
+						class="btn-close"
+						data-bs-dismiss="modal"
+					></button>
+				</div>
+				<div class="modal-body">
+					Bạn muốn xóa liên hệ?
+				</div>
+				<div class="modal-footer">
+					<button
+						type="button"
+						class="btn btn-secondary"
+						data-bs-dismiss="modal"
+					>
+						Hủy
+					</button>
+					<button
+						type="button"
+						class="btn btn-danger"
+						data-bs-dismiss="modal"
+						@click="onDelete"
+					>
+						Xóa
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -126,6 +166,7 @@ export default {
 			email: yup.string().email("Email không hợp lệ"),
 			address: yup.string(),
 			phone: yup.string(),
+			favorite: yup.boolean(),
 		});
 
 		return {
@@ -136,6 +177,7 @@ export default {
 	},
 	methods: {
 		submit() {
+			console.log(this.localContact);
 			this.$emit("submit:contact", this.localContact);
 		},
 		onDelete() {

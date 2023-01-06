@@ -40,7 +40,7 @@
 					</li>
 				</ul>
 
-				<ul class="navbar-nav" v-if="!authed">
+				<ul class="navbar-nav" v-if="!store.authed">
 					<router-link
 						class="btn btn-sm text-light"
 						:to="{ name: 'login' }"
@@ -57,10 +57,12 @@
 
 				<ul class="navbar-nav" v-else>
 					<span class="text-light text-sm p-1">{{
-						userInfor.username
+						store.userInfor.username
 					}}</span>
 					<button
 						class="btn btn-outline-light btn-sm"
+						data-bs-target="#logoutModal"
+						data-bs-toggle="modal"
 					>
 						Đăng xuất
 					</button>
@@ -68,18 +70,60 @@
 			</div>
 		</div>
 	</nav>
+
+	<div class="modal fade" id="logoutModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5">
+						Đăng xuất
+					</h1>
+					<button
+						type="button"
+						class="btn-close"
+						data-bs-dismiss="modal"
+					></button>
+				</div>
+				<div class="modal-body">
+					Bạn muốn đăng xuất?
+				</div>
+				<div class="modal-footer">
+					<button
+						type="button"
+						class="btn btn-secondary"
+						data-bs-dismiss="modal"
+					>
+						Hủy
+					</button>
+					<button
+						type="button"
+						class="btn btn-danger"
+						data-bs-dismiss="modal"
+						@click="logout"
+					>
+						Đăng xuất
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
-import store from "../store";
+import store from "@/store";
+import authService from "@/services/auth.service";
 
 export default {
-	components: {},
 	data() {
 		return {
-			authed: store.authed,
-			userInfor: store.userInfor,
+			store,
 		};
+	},
+	methods: {
+		logout() {
+			authService.logout();
+			this.$router.push({ name: "login" });
+		},
 	},
 };
 </script>

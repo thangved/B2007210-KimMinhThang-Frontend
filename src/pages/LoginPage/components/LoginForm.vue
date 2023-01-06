@@ -41,6 +41,15 @@
 		<button class="btn btn-primary" type="submit">
 			Đăng nhập
 		</button>
+
+		<hr />
+
+		<p>
+			Bạn chưa có tài khoản?
+			<router-link :to="{ name: 'register' }">
+				Đăng ký ngay
+			</router-link>
+		</p>
 	</vee-form>
 </template>
 

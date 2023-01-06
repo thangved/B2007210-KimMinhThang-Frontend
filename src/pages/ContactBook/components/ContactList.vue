@@ -5,17 +5,24 @@
 
 	<ul v-if="contacts.length" class="list-group">
 		<li
-			class="list-group-item list-group-item-action"
+			class="list-group-item list-group-item-action d-flex align-items-center"
 			v-for="(contact, index) in contacts"
 			:class="{ active: index === activeIndex }"
 			:key="index"
 			@click="updateActiveIndex(index)"
 		>
-			{{ contact.name }}
+			<span class="flex-grow-1">
+				{{ contact.name }}
+			</span>
+			<span v-if="contact.favorite">
+				<i
+					class="fa-solid fa-heart text-danger"
+				></i>
+			</span>
 		</li>
 	</ul>
 
-	<div v-else class="p-2 text-center">
+	<div v-else class="alert alert-warning p-2 text-center">
 		Bạn chưa tạo liên hệ nào
 	</div>
 </template>

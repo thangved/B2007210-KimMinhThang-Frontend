@@ -1,4 +1,4 @@
-import appConfig from "../configs/app.config";
+import appConfig from "@/configs/app.config";
 import request from "./request";
 
 const token = {
