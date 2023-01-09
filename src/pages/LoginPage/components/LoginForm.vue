@@ -5,9 +5,9 @@
 		@invalid-submit="validate"
 	>
 		<div class="mb-3">
-			<label for="username" class="form-label"
-				>Tên đăng nhập</label
-			>
+			<label for="username" class="form-label">
+				Tên đăng nhập
+			</label>
 			<field
 				class="form-control"
 				name="username"

@@ -3,7 +3,7 @@
 		class="card border p-4"
 		:validation-schema="registerSchema"
 		@invalid-submit="validate"
-		@submit="register"
+		@submit="handleSubmit"
 	>
 		<div class="mb-3">
 			<label for="username" class="form-label"
@@ -14,7 +14,7 @@
 				name="username"
 				v-model="formData.username"
 				autofocus
-				:class="{ 'is-invalid': error.username }"
+				:class="{ 'is-invalid': errors.username }"
 			/>
 			<error-message
 				name="username"
@@ -32,7 +32,7 @@
 				type="email"
 				v-model="formData.email"
 				autofocus
-				:class="{ 'is-invalid': error.email }"
+				:class="{ 'is-invalid': errors.email }"
 			/>
 			<error-message
 				name="email"
@@ -50,7 +50,7 @@
 				type="password"
 				v-model="formData.password"
 				autofocus
-				:class="{ 'is-invalid': error.password }"
+				:class="{ 'is-invalid': errors.password }"
 			/>
 			<error-message
 				name="password"
@@ -69,7 +69,7 @@
 				v-model="formData.confirmPassword"
 				autofocus
 				:class="{
-					'is-invalid': error.confirmPassword,
+					'is-invalid': errors.confirmPassword,
 				}"
 			/>
 			<error-message
@@ -96,12 +96,11 @@
 </template>
 
 <script>
-import AuthService from "@/services/auth.service";
 import store from "@/store";
 import {
-	Form as VeeForm,
-	Field,
 	ErrorMessage,
+	Field,
+	Form as VeeForm,
 } from "vee-validate";
 import * as yup from "yup";
 
@@ -138,7 +137,7 @@ export default {
 				password: "",
 				confirmPassword: "",
 			},
-			error: {},
+			errors: {},
 			registerSchema,
 		};
 	},
@@ -147,28 +146,14 @@ export default {
 		Field,
 		ErrorMessage,
 	},
+	emits: ["submit:register"],
 	methods: {
-		validate() {
-			try {
-				this.registerSchema.validateSync(
-					this.formData
-				);
-				this.error = {};
-			} catch (error) {
-				this.error = {
-					[error.path]: true,
-				};
-			}
+		validate(event) {
+			this.errors = event.errors;
 		},
-		async register() {
-			try {
-				await AuthService.register(this.formData);
 
-				await store.login(this.formData);
-				this.$router({ name: "contactbook" });
-			} catch (error) {
-				alert(error.response.data.message);
-			}
+		handleSubmit() {
+			this.$emit("submit:register", this.formData);
 		},
 	},
 };

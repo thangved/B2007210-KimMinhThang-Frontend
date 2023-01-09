@@ -13,7 +13,7 @@
 				name="name"
 				v-model="localContact.name"
 				autofocus
-				:class="{ 'is-invalid': error.name }"
+				:class="{ 'is-invalid': errors.name }"
 			/>
 			<error-message
 				name="name"
@@ -30,7 +30,7 @@
 				id="email"
 				name="email"
 				v-model="localContact.email"
-				:class="{ 'is-invalid': error.email }"
+				:class="{ 'is-invalid': errors.email }"
 			/>
 			<error-message
 				name="email"
@@ -47,7 +47,7 @@
 				id="address"
 				name="address"
 				v-model="localContact.address"
-				:class="{ 'is-invalid': error.address }"
+				:class="{ 'is-invalid': errors.address }"
 			/>
 			<error-message
 				name="address"
@@ -65,7 +65,7 @@
 				id="phone"
 				name="phone"
 				v-model="localContact.phone"
-				:class="{ 'is-invalid': error.phone }"
+				:class="{ 'is-invalid': errors.phone }"
 			/>
 			<error-message
 				name="phone"
@@ -79,7 +79,7 @@
 				class="form-check-input"
 				id="favorite"
 				name="favorite"
-				:class="{ 'is-invalid': error.favorite }"
+				:class="{ 'is-invalid': errors.favorite }"
 				v-model="localContact.favorite"
 			/>
 			<error-message
@@ -172,7 +172,8 @@ export default {
 		return {
 			localContact: this.contact,
 			contactFormScheme,
-			error: {},
+
+			errors: {},
 		};
 	},
 	methods: {
@@ -183,17 +184,8 @@ export default {
 		onDelete() {
 			this.$emit("delete:contact");
 		},
-		validate() {
-			try {
-				this.contactFormScheme.validateSync(
-					this.localContact
-				);
-				this.error = {};
-			} catch (error) {
-				this.error = {
-					[error.path]: true,
-				};
-			}
+		validate(event) {
+			this.errors = event.errors;
 		},
 	},
 };

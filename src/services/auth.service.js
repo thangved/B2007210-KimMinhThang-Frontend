@@ -4,7 +4,14 @@ import store from "@/store";
 
 class AuthService {
 	static async login(payload) {
-		return await request.post("/auth/login", payload);
+		try {
+			return await request.post(
+				"/auth/login",
+				payload
+			);
+		} catch (error) {
+			throw new Error(error.response.data.message);
+		}
 	}
 	static async auth() {
 		return await request.get("/auth");

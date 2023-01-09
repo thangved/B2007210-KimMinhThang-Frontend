@@ -8,13 +8,9 @@ const store = reactive({
 	authed: false,
 	logged: false,
 	async login(payload) {
-		try {
-			const res = await AuthService.login(payload);
-			token.set(res.data.accessToken);
-			await this.fetchUserInfo();
-		} catch (error) {
-			throw new Error(error.response.data.message);
-		}
+		const res = await AuthService.login(payload);
+		token.set(res.data.accessToken);
+		await this.fetchUserInfo();
 	},
 	async fetchUserInfo() {
 		try {
