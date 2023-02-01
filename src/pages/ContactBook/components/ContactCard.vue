@@ -36,18 +36,14 @@
 		<dt class="col-sm-4">Ngày tạo</dt>
 		<dd class="col-sm-8">
 			<i>
-				{{
-					moment(contactInfo.createdAt).calendar()
-				}}
+				{{ dayjs(contactInfo.createdAt).fromNow() }}
 			</i>
 		</dd>
 
 		<dt class="col-sm-4">Chỉnh sửa lần cuối</dt>
 		<dd class="col-sm-8">
 			<i>
-				{{
-					moment(contactInfo.updatedAt).calendar()
-				}}
+				{{ dayjs(contactInfo.updatedAt).fromNow() }}
 			</i>
 		</dd>
 	</dl>
@@ -57,12 +53,14 @@
 </template>
 
 <script>
-import moment from "moment";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 export default {
 	props: ["contactInfo"],
 	data() {
-		return { moment };
+		return { dayjs };
 	},
 };
 </script>
