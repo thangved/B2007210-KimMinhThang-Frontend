@@ -44,9 +44,6 @@ export default {
 		},
 		async handleDelete() {
 			try {
-				if (!confirm("Bạn muốn xóa liên hệ này?"))
-					return;
-
 				await ContactService.deleteById(
 					this.contact._id
 				);
