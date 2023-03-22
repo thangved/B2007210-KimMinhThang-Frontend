@@ -1,10 +1,6 @@
-import { createWebHistory, createRouter } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
 import ContactBook from "@/pages/ContactBook/ContactBook.vue";
-import NewContact from "@/pages/NewContact/NewContact.vue";
-import EditContact from "@/pages/EditContact/EditContact.vue";
-import LoginPage from "@/pages/LoginPage/LoginPage.vue";
-import RegisterPage from "@/pages/RegisterPage/RegisterPage.vue";
 
 const routes = [
 	{
@@ -15,23 +11,32 @@ const routes = [
 	{
 		path: "/new",
 		name: "new_contact",
-		component: NewContact,
+		component: () =>
+			import("@/pages/NewContact/NewContact.vue"),
 	},
 	{
 		path: "/edit/:id",
 		name: "edit_contact",
-		component: EditContact,
+		component: () =>
+			import("@/pages/EditContact/EditContact.vue"),
 	},
 	{
 		path: "/login",
 		name: "login",
-		component: LoginPage,
+		component: () =>
+			import("@/pages/LoginPage/LoginPage.vue"),
 	},
-
 	{
 		path: "/register",
 		name: "register",
-		component: RegisterPage,
+		component: () =>
+			import("@/pages/RegisterPage/RegisterPage.vue"),
+	},
+	{
+		path: "/:any",
+		name: "notfound",
+		component: () =>
+			import("@/pages/NotFound/NotFound.vue"),
 	},
 ];
 
