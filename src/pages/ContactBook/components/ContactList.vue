@@ -1,7 +1,7 @@
 <template>
-	<h2>
+	<h4>
 		Danh bạ <i class="fa-solid fa-address-book"></i>
-	</h2>
+	</h4>
 
 	<ul v-if="contacts.length" class="list-group">
 		<li
@@ -23,7 +23,8 @@
 	</ul>
 
 	<div v-else class="alert alert-warning p-2 text-center">
-		Bạn chưa tạo liên hệ nào
+		<i class="fa-solid fa-triangle-exclamation"></i>
+		Không có liên hệ để hiển thị
 	</div>
 </template>
 

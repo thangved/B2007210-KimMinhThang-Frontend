@@ -1,8 +1,8 @@
 <template>
-	<h2 class="mb-4">
+	<h4 class="mb-4">
 		Chi tiết liên hệ
 		<i class="fa-solid fa-address-card"></i>
-	</h2>
+	</h4>
 
 	<dl v-if="contactInfo" class="row">
 		<dt class="col-sm-4">Tên:</dt>
@@ -46,9 +46,24 @@
 				{{ dayjs(contactInfo.updatedAt).fromNow() }}
 			</i>
 		</dd>
+
+		<dt class="col-sm-12">
+			<router-link :to="`/edit/${contactInfo._id}`">
+				<a
+					class="btn btn-warning btn-sm"
+					style="
+						--bs-btn-padding-y: 0.25rem;
+						--bs-btn-padding-x: 0.5rem;
+						--bs-btn-font-size: 0.75rem;
+					"
+				>
+					<i class="fa fa-edit"></i> Hiệu chỉnh
+				</a>
+			</router-link>
+		</dt>
 	</dl>
-	<span v-else class="alert alert-primary p-2">
-		Vui lòng chọn một liên hệ để hiển thị
+	<span v-else class="alert alert-primary p-2"
+		>Vui lòng chọn một liên hệ để hiển thị
 	</span>
 </template>
 

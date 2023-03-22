@@ -10,15 +10,6 @@
 				class="d-flex justify-content-between flex-wrap"
 			>
 				<div
-					class="btn btn-outline-dark mt-2 btn-sm"
-					v-if="activeIndex !== -1"
-					@click="gotoEditPage"
-				>
-					<i class="fa-solid fa-pen"></i>
-					Chỉnh sửa
-				</div>
-
-				<div
 					class="btn btn-primary mt-2 btn-sm"
 					@click="refreshContactList"
 				>
@@ -133,15 +124,6 @@ export default {
 			} catch (error) {
 				console.log(error);
 			}
-		},
-
-		gotoEditPage() {
-			this.$router.push({
-				name: "edit_contact",
-				params: {
-					id: this.contacts[this.activeIndex]._id,
-				},
-			});
 		},
 
 		compareContactWithString(contact, str) {
